@@ -48,6 +48,7 @@ jobs:
         context: ./jinbooks
         file: ./jinbooks/jinbooks-web/Dockerfile
         push: false
+        load: true
         tags: jinbooks:latest
         labels: |
           org.opencontainers.image.authors=JinBooks <support@jinbooks.com>
@@ -59,7 +60,7 @@ jobs:
       run: docker save jinbooks:latest -o jinbooks/build/jinbooks-docker.tar
 
     - name: Verify tar file
-      run: ls -la jinbooks/build/
+      run: ls -lh jinbooks/build/jinbooks-docker.tar
 
     - name: Upload docker tar artifact
       uses: actions/upload-artifact@v4
