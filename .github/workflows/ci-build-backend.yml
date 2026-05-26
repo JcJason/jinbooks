@@ -1,4 +1,4 @@
-name: CI Build & Docker Export
+name: CI Build Backend
 
 on:
   push:
@@ -45,14 +45,15 @@ jobs:
     - name: Build Docker image
       uses: docker/build-push-action@v5
       with:
-        context: ./jinbooks/jinbooks-web
+        context: ./jinbooks
+        file: ./jinbooks/jinbooks-web/Dockerfile
         push: false
         tags: jinbooks:latest
         labels: |
           org.opencontainers.image.authors=JinBooks <support@jinbooks.com>
           org.opencontainers.image.description=JinBooks财务记账系统 - 后端服务
         build-args: |
-          JAR_FILE=../build/jinbooks-boot-*-ga.jar
+          JAR_FILE=build/jinbooks-boot-*-ga.jar
 
     - name: Export Docker image to tar
       run: docker save jinbooks:latest -o jinbooks/build/jinbooks-docker.tar
